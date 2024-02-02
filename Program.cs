@@ -45,7 +45,7 @@ namespace Driver
                 }
 
             }
-            async void sendmail(string adress)
+            void sendmail(string adress)
             {
 
                 var connectionString = @"endpoint=https://cstest002.unitedstates.communication.azure.com/;accesskey=Ih7yMonp3JAijBwCeLQ3K+qVN5MoKEdkKkR3qwYXd+/zdfGcVEGfhxVbW7zz7mEIq4SpdZGi6/o9e/9JxwHYTQ==";
@@ -57,25 +57,25 @@ namespace Driver
                 var recipient = adress;
                 try
                 {
-                    Console.WriteLine("Sending email...");
-                    EmailSendOperation emailSendOperation = await emailClient.SendAsync(
+                    EmailSendOperation emailSendOperation = emailClient.Send(
                         Azure.WaitUntil.Completed,
                         sender,
                         recipient,
                         subject,
                         htmlContent);
-                    EmailSendResult statusMonitor = emailSendOperation.Value;
 
                     Console.WriteLine($"Email Sent. Status = {emailSendOperation.Value.Status}");
 
-                    /// Get the OperationId so that it can be used for tracking the message for troubleshooting
-                    string operationId = emailSendOperation.Id;
-                    Console.WriteLine($"Email operation id = {operationId}");
                 }
                 catch (RequestFailedException ex)
                 {
-                    /// OperationID is contained in the exception message and can be used for troubleshooting purposes
                     Console.WriteLine($"Email send operation failed with error code: {ex.ErrorCode}, message: {ex.Message}");
+                    Console.WriteLine($"Exception details: {ex.ToString()}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Unexpected exception: {ex.GetType().FullName}, message: {ex.Message}");
+                    Console.WriteLine($"Exception details: {ex.ToString()}");
                 }
 
 
