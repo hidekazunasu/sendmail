@@ -8,11 +8,11 @@ namespace Driver
     {
         // Obtain connection string information from the portal
         //
-        private static string Host = @"mailtest001.postgres.database.azure.com";
-        private static string User = @"user";
-        private static string DBname = "postgres";
-        private static string Password = "Password334";
-        private static string Port = "5432";
+        private static string Host = @"Dbのホスト";
+        private static string User = @"userName";
+        private static string DBname = "DBname";
+        private static string Password = "Password";
+        private static string Port = "5432"; #デフォルトでは5432
 
         static void Main(string[] args)
         {
@@ -48,11 +48,10 @@ namespace Driver
             void sendmail(string adress)
             {
 
-                var connectionString = @"endpoint=https://cstest002.unitedstates.communication.azure.com/;accesskey=Ih7yMonp3JAijBwCeLQ3K+qVN5MoKEdkKkR3qwYXd+/zdfGcVEGfhxVbW7zz7mEIq4SpdZGi6/o9e/9JxwHYTQ==";
-                var emailClient = new EmailClient(connectionString);
+                var connectionString = @"接続文字列"; # 通信サービスから取得した接続文字列
                 // EmailContentの文字列引数はメールタイトル
                 var subject = "Azure Mail Test";
-                var sender = "DoNotReply@864a9094-1b48-408b-851f-9403b8eb0024.azurecomm.net";
+                var sender = "送信元メールアドレス";
                 var htmlContent = "<html><h4>This email message is sent from Azure Communication Service Email.</h4></html>";
                 var recipient = adress;
                 try
